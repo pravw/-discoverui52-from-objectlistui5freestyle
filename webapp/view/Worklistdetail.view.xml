@@ -1,0 +1,33 @@
+<mvc:View
+    controllerName="ui5.project3.controller.Worklistdetail"
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:semantic="sap.f.semantic">
+      <App id="app2">
+        <pages>
+            <Page>
+
+
+
+        <content>
+            <ObjectHeader
+                title="{ProductName}"
+                number="{UnitPrice}"
+                numberUnit="USD">
+                <attributes>
+                    <ObjectAttribute title="Quantity per Unit" text="{QuantityPerUnit}" />
+                    <ObjectAttribute title="Units In Stock" text="{UnitsInStock}" />
+                    <ObjectAttribute title="Units On Order" text="{UnitsOnOrder}" />
+                </attributes>
+    
+            </ObjectHeader>
+        </content>
+
+
+                </Page>
+        </pages>
+    </App>
+
+</mvc:View>
+
+
