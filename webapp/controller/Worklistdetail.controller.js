@@ -33,10 +33,6 @@ sap.ui.define([
 
     
 
-        //  onInit() {
-        // this.getRouter().getRoute("Worklistdetail").attachMatched(this._onRouteMatched, this)
-        //  },
-
 
 
          onInit: function() {

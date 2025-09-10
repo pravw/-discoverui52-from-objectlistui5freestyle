@@ -24,6 +24,10 @@
                 width="auto"
                 items="{
                     path: '/Products',
+                    parameters:{
+                    expand:'Category,Supplier'
+                    
+                    },
                     sorter: {
                         path: 'ProductName',
                         descending: false
@@ -57,13 +61,13 @@
                 </headerToolbar>
 
                 <columns>
-                    <Column id="nameColumn">
+                    <Column id="nameColumn"  >
                         <Text text="{i18n>tableNameColumnTitle}" id="nameColumnTitle"/>
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Desktop">
                         <Text text="{i18n>category}" />
-                    </Column>
-                    <!-- <Column demandPopin="true" minScreenWidth="Tablet">
+                    </Column>   
+                    <Column demandPopin="true" minScreenWidth="Tablet">
                         <Text text="{i18n>supplier}" />
                     </Column>
                     <Column demandPopin="true" minScreenWidth="Tablet">
@@ -74,7 +78,7 @@
                     </Column>
                     <Column id="unitNumberColumn" hAlign="End" width="15%">
                         <Text text="{i18n>tableUnitNumberColumnTitle}" id="unitNumberColumnTitle"/>
-                    </Column> -->
+                    </Column>
                 </columns>
 
                 <items>
@@ -90,9 +94,10 @@
                                 text="{= ${Discontinued} ? ${i18n>discontinued} : ${i18n>inProduction}}"
                                 state="{= ${Discontinued} ? 'Error' : 'Success'}"
                                 inverted="true" />
-                            <!-- <ObjectNumber
+                            <ObjectNumber
                                 number="{UnitsInStock}"
-                                state="{ path: 'UnitsInStock', formatter: '.formatter.formatStockStatus'}" /> -->
+                                state="{ path: 'UnitsInStock', formatter: '.formatter.formatStockStatus'}" 
+                                />
                             <ObjectNumber
                                 number="{
                                     parts: ['UnitPrice', 'Currency'],

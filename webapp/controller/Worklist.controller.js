@@ -1,9 +1,11 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "sap/ui/core/mvc/Controller",
+    "../model/formatter"
+], (Controller,formatter) => {
     "use strict";
 
     return Controller.extend("ui5.project3.controller.Worklist", {
+         formatter: formatter,
         onInit() {
         },
 
