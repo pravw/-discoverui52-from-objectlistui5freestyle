@@ -29,18 +29,14 @@ sap.ui.define([
     });
 },
         
-
-
-    
-
-
-
          onInit: function() {
     sap.ui.core.UIComponent.getRouterFor(this)
         .getRoute("Worklistdetail")
         .attachMatched(this._onRouteMatched, this);
-}
+     },
 
+
+      
 
       
     });

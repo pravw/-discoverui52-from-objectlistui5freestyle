@@ -1,5 +1,7 @@
-sap.ui.define(["sap/ui/core/ValueState"], function (ValueState) {
+sap.ui.define(["sap/ui/core/library"], function (coreLibrary) {
     "use strict";
+
+    var ValueState = coreLibrary.ValueState
 
     return {
 
