@@ -1,15 +1,57 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "./BaseController",
+    "sap/ui/model/json/JSONModel",
     "../model/formatter",
     "sap/ui/model/Filter",
       "sap/ui/model/FilterOperator"
-], (Controller,formatter,Filter,FilterOperator) => {
+], (BaseController,JSONModel,formatter,Filter,FilterOperator) => {
     "use strict";
 
-    return Controller.extend("ui5.project3.controller.Worklist", {
+    return BaseController.extend("ui5.project3.controller.Worklist", {
          formatter: formatter,
         onInit() {
         },
+               /* =========================================================== */
+        /* lifecycle methods                                           */
+        /* =========================================================== */
+
+        /**
+         * Called when the worklist controller is instantiated.
+         * @public
+         */
+        onInit : function () {
+            var oViewModel;
+
+            // keeps the search state
+            this._aTableSearchState = [];
+
+            // Model used to manipulate control states
+            oViewModel = new JSONModel({
+                worklistTableTitle : this.getResourceBundle().getText("worklistTableTitle"),
+                shareSendEmailSubject: this.getResourceBundle().getText("shareSendEmailWorklistSubject"),
+                shareSendEmailMessage: this.getResourceBundle().getText("shareSendEmailWorklistMessage", [location.href]),
+                tableNoDataText : this.getResourceBundle().getText("tableNoDataText")
+            });
+            this.setModel(oViewModel, "worklistView");
+
+
+
+            
+            // Set icon tab counts
+            this._setIconFilterCounts();
+
+        },
+
+        
+
+
+
+
+
+
+
+
+
         
 
 
@@ -49,6 +91,42 @@ sap.ui.define([
 
             oBinding.filter(aFilter)
         },
+
+
+
+           _setIconFilterCounts: function() {
+            var oModel = this.getOwnerComponent().getModel();
+
+            oModel.read("/Products/$count", {
+                success: function(iCount) {
+                    this.getModel("worklistView").setProperty("/countAll", iCount)
+                }.bind(this)
+            })
+
+
+            oModel.read("/Products/$count", {
+                filters: [ new Filter("UnitsInStock", FilterOperator.GE, 20) ],
+                success: function(iCount) {
+                    this.getModel("worklistView").setProperty("/countAvailable", iCount)
+                }.bind(this)
+            })
+
+            oModel.read("/Products/$count", {
+                filters: [ new Filter("UnitsInStock", FilterOperator.BT, 1, 19) ],
+                success: function(iCount) {
+                    this.getModel("worklistView").setProperty("/countLowOnStock", iCount)
+                }.bind(this)
+            })
+
+            oModel.read("/Products/$count", {
+                filters: [ new Filter("UnitsInStock", FilterOperator.LT, 1) ],
+                success: function(iCount) {
+                    this.getModel("worklistView").setProperty("/countUnavailable", iCount)
+                }.bind(this)
+
+        })
+
+    }
 
 
 
