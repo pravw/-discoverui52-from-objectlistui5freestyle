@@ -3,14 +3,17 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "../model/formatter",
     "sap/ui/model/Filter",
-      "sap/ui/model/FilterOperator"
-], (BaseController,JSONModel,formatter,Filter,FilterOperator) => {
+      "sap/ui/model/FilterOperator",
+      
+    "sap/ui/export/Spreadsheet",
+       "sap/ui/export/library",          
+], (BaseController,JSONModel,formatter,Filter,FilterOperator,Spreadsheet,exportLibrary) => {
     "use strict";
+    const EdmType = exportLibrary.EdmType;
 
     return BaseController.extend("ui5.project3.controller.Worklist", {
          formatter: formatter,
-        onInit() {
-        },
+      
                /* =========================================================== */
         /* lifecycle methods                                           */
         /* =========================================================== */
@@ -93,6 +96,26 @@ sap.ui.define([
         },
 
 
+       
+          onExport: function() {
+            var oTable = this.getView().byId("table");
+            var aColumns = this._getCoulumnConfig();
+            var oSettings = {
+                workbook: {
+                    columns: aColumns,
+                },
+                dataSource: oTable.getBinding("items"),
+                fileName: "Products.xlsx"
+            }
+
+            var oSheet = new Spreadsheet(oSettings);
+
+            oSheet.build().finally(function() {
+                oSheet.destroy();
+            })
+        },
+
+
 
            _setIconFilterCounts: function() {
             var oModel = this.getOwnerComponent().getModel();
@@ -125,10 +148,52 @@ sap.ui.define([
                 }.bind(this)
 
         })
+        },
 
-    }
+         _getCoulumnConfig: function() {
+            var aColumns = []
 
+            aColumns.push({
+                label: this.getResourceBundle().getText("productId"),
+                property: "ProductID",
+                type: EdmType.Number
+            });
 
+            aColumns.push({
+                label: this.getResourceBundle().getText("tableNameColumnTitle"),
+                property: "ProductName",
+                type: EdmType.String
+            });
+
+            aColumns.push({
+                label: this.getResourceBundle().getText("category"),
+                property: "Category/CategoryName",
+                type: EdmType.String
+            });
+
+            aColumns.push({
+                label: this.getResourceBundle().getText("supplier"),
+                property: "Supplier/CompanyName",
+                type: EdmType.String
+            });
+
+            aColumns.push({
+                label: this.getResourceBundle().getText("status"),
+                property: "Discontinued",
+                type: EdmType.Boolean,
+                trueValue: this.getResourceBundle().getText("discontinued"),
+                falseValue: this.getResourceBundle().getText("inProduction")
+            });
+
+            aColumns.push( {
+                label: this.getResourceBundle().getText("unitsInStock"),
+                property: ["UnitsInStock", "QuantityPerUnit"],
+                type: EdmType.String,
+                template: '{0} - ({1})'
+            });
+
+            return aColumns
+        }
 
     });
 });

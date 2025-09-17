@@ -10,6 +10,7 @@
     <semantic:SemanticPage
         id="page1"
         headerPinnable="false"
+        showFooter="true"
         toggleHeaderOnTitleClick="false">
 
         <semantic:titleHeading>
@@ -20,13 +21,13 @@
 
         <semantic:content>
         <IconTabBar
-                class="sapUiResponsiveContentPadding"
+                class="{= ${device>/system/phone} ? '' : 'sapUiResponsiveContentPadding'}"
                 select="onSelectFilter">
                 <items>
                     <IconTabFilter
                         showAll="true"
                         count="{worklistView>/countAll}"
-                        text="{i18n>products}"
+                        text="{= !${device>/system/phone} ? ${i18n>procts} : ${i18n>all} }"
                         key="all" />
                     <IconTabSeparator />
                     <IconTabFilter
@@ -146,6 +147,12 @@
 
            
         </semantic:content>
+
+
+        		<semantic:footerCustomActions>
+			<Button icon="sap-icon://excel-attachment" press="onExport" />
+		
+		</semantic:footerCustomActions>
 
         <semantic:sendEmailAction>
             <semantic:SendEmailAction id="shareEmail" press=".onShareEmailPress"/>
