@@ -1,9 +1,13 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller"
-], (Controller) => {
+    "./BaseController",
+    "sap/ui/model/json/JSONModel",
+    "sap/ui/core/routing/History",
+    "../model/formatter"
+], (BaseController,JSONModel,History,formatter) => {
     "use strict";
 
-    return Controller.extend("ui5.project3.controller.Worklistdetail", {
+    return BaseController.extend("ui5.project3.controller.Worklistdetail", {
+          formatter: formatter,
 
    
 
@@ -34,6 +38,35 @@ sap.ui.define([
         .getRoute("Worklistdetail")
         .attachMatched(this._onRouteMatched, this);
      },
+
+
+
+      /**
+         * Binds the view to the object path.
+         * @function
+         * @param {string} sObjectPath path to the object to be bound
+         * @private
+         */
+        _bindView : function (sObjectPath) {
+            var oViewModel = this.getModel("objectView");
+
+            this.getView().bindElement({
+                path: sObjectPath,
+                parameters: {
+                    expand: "Category,Supplier"
+                },
+                events: {
+                    change: this._onBindingChange.bind(this),
+                    dataRequested: function () {
+                        oViewModel.setProperty("/busy", true);
+                    },
+                    dataReceived: function () {
+                        oViewModel.setProperty("/busy", false);
+                    }
+                }
+            });
+        }
+
 
 
       

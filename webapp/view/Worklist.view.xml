@@ -134,6 +134,7 @@
                                     parts: ['UnitPrice', 'Currency'],
                                     type: 'sap.ui.model.type.Currency'
                                 }"
+                                
                                 unit="USD" />
                         </cells>
                     </ColumnListItem>

@@ -3,10 +3,9 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "../model/formatter",
     "sap/ui/model/Filter",
-      "sap/ui/model/FilterOperator",
-      
+    "sap/ui/model/FilterOperator",
     "sap/ui/export/Spreadsheet",
-       "sap/ui/export/library",          
+    "sap/ui/export/library"     
 ], (BaseController,JSONModel,formatter,Filter,FilterOperator,Spreadsheet,exportLibrary) => {
     "use strict";
     const EdmType = exportLibrary.EdmType;
@@ -45,18 +44,7 @@ sap.ui.define([
 
         },
 
-        
-
-
-
-
-
-
-
-
-
-        
-
+   
 
         onPress: function(oEvent){
 
