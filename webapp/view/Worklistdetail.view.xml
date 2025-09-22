@@ -6,7 +6,7 @@
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:f="sap.ui.layout.form"
     xmlns:uxap="sap.uxap">
-    <uxap:ObjectPageLayout>
+    <uxap:ObjectPageLayout enableLazyLoading="true">
         <uxap:headerTitle>
             <uxap:ObjectPageDynamicHeaderTitle>
                 <uxap:expandedHeading>
@@ -144,6 +144,48 @@
                             </uxap:blocks>
                         </uxap:ObjectPageSubSection>
                     </uxap:subSections>
+            </uxap:ObjectPageSection>
+            <uxap:ObjectPageSection titleUppercase="false" title="{i18n>orders}">
+                <uxap:ObjectPageSubSection>
+                    <uxap:blocks>
+                        <uxap:ObjectPageLazyLoader id="idLazyLoaderOrders" stashed="true">
+                            <Table items="{Order_Details}" growing="true" growingThreshold="10">
+                                <columns>
+                                    <Column>
+                                        <Text text="{i18n>orderId}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>salesRep}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>orderDate}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>shippedDate}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>shipCountry}" />
+                                    </Column>
+                                    <Column>
+                                        <Text text="{i18n>quantity}" />
+                                    </Column>
+                                </columns>
+                                <items>
+                                    <ColumnListItem>
+                                        <cells>
+                                            <ObjectIdentifier title="{OrderID}" />
+                                            <Text text="{Order/Employee/LastName} {Order/Employee/FirstName}" />
+                                            <Text text="{ path: 'Order/OrderDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+                                            <Text text="{ path: 'Order/ShippedDate', type: 'sap.ui.model.type.Date', formatOptions: { style: 'medium' } }" />
+                                            <Text text="{Order/ShipCountry}" />
+                                            <ObjectNumber number="{Quantity}" />
+                                        </cells>
+                                    </ColumnListItem>
+                                </items>
+                            </Table>
+                        </uxap:ObjectPageLazyLoader>
+                    </uxap:blocks>
+                </uxap:ObjectPageSubSection>
             </uxap:ObjectPageSection>
         </uxap:sections>
     </uxap:ObjectPageLayout>

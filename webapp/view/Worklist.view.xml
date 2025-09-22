@@ -27,7 +27,7 @@
                     <IconTabFilter
                         showAll="true"
                         count="{worklistView>/countAll}"
-                        text="{= !${device>/system/phone} ? ${i18n>procts} : ${i18n>all} }"
+                        text="{= !${device>/system/phone} ? ${i18n>products} : ${i18n>all} }"
                         key="all" />
                     <IconTabSeparator />
                     <IconTabFilter
