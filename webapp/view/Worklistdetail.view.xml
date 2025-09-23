@@ -148,7 +148,7 @@
             <uxap:ObjectPageSection titleUppercase="false" title="{i18n>orders}">
                 <uxap:ObjectPageSubSection>
                     <uxap:blocks>
-                        <uxap:ObjectPageLazyLoader id="idLazyLoaderOrders" stashed="true">
+                     
                             <Table items="{Order_Details}" growing="true" growingThreshold="10">
                                 <columns>
                                     <Column>
@@ -183,7 +183,7 @@
                                     </ColumnListItem>
                                 </items>
                             </Table>
-                        </uxap:ObjectPageLazyLoader>
+                     
                     </uxap:blocks>
                 </uxap:ObjectPageSubSection>
             </uxap:ObjectPageSection>
